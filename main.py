@@ -13,8 +13,9 @@ class Range(metaclass=ABCMeta):
         if self.lower_endpoint >= self.upper_endpoint:
             raise ValueError()
 
+    @abstractmethod
     def __str__(self) -> str:
-        return f"[{self.lower_endpoint},{self.upper_endpoint}]"
+        pass
 
     @abstractmethod
     def contains(self, target: int) -> bool:
@@ -30,7 +31,13 @@ class ClosedRange(Range):
     def contains(self, target: int) -> bool:
         return self.lower_endpoint <= target <= self.upper_endpoint
 
+    def __str__(self) -> str:
+        return f"[{self.lower_endpoint},{self.upper_endpoint}]"
+
 
 class OpenedRange(Range):
     def contains(self, target: int) -> bool:
         return self.lower_endpoint < target < self.upper_endpoint
+
+    def __str__(self) -> str:
+        return f"({self.lower_endpoint},{self.upper_endpoint})"
